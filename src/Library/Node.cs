@@ -7,15 +7,22 @@ namespace Library
     public class Node
     {
         private int number;
+        private Person person;
+        private List<Node> children = new List<Node>(); //lista nodos hijosq
 
-        private List<Node> children = new List<Node>();
-
-        public int Number {
+        public int Number 
+        {
             get
             {
                 return this.number;
             }
         }
+
+        public Person Persona
+        {
+            get { return this.person; }
+        }
+        
 
         public ReadOnlyCollection<Node> Children { 
             get
@@ -24,9 +31,10 @@ namespace Library
             }
         }
 
-        public Node(int number)
+        public Node(int number, Person person)
         {
             this.number = number;
+            this.person = person;
         }
 
         public void AddChildren(Node n)
@@ -34,5 +42,10 @@ namespace Library
             this.children.Add(n);
         }
         
+        public void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
     }
 }
